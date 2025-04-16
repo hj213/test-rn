@@ -16,7 +16,6 @@ export enum MoneytreeMode {
     TEST = 'test',
     PROD = 'prod',
 }
-
 export class MoneytreeEvent {
     type: MoneytreeEventType;
     data: any;
@@ -34,7 +33,6 @@ export const confirmPaymentEvent = (orderId: string) => {
     //     window.ReactNativeWebView.confirmPayment(${JSON.stringify(orderId)});
     // `);
 }
-
 
 export function MoneytreeWebview({
     jwtToken,
@@ -71,6 +69,27 @@ export function MoneytreeWebview({
         return () => backHandler.remove();
     }, []);
 
+    const responseLogin = async (jwtToken: string, version: string) => {
+        try {
+            const response = await fetch(`${origin}/api/commerce/webview/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: jwtToken,
+                    version: version,
+                }),
+                redirect: 'follow',
+            });
+            const data = await response.json();
+            console.log('Login response:', data);  // 응답 확인용
+        } catch (error) {
+            console.error('[responseLogin] error:', error);
+        }
+    }
+
+
     const handleShouldStartLoadWithRequest = (request: any) => {
         if (request.url.startsWith(origin)) {
             return true;
@@ -83,9 +102,10 @@ export function MoneytreeWebview({
             const data = JSON.parse(event.nativeEvent.data);
             switch (data.event) {
                 case 'login':
-                    // webviewRef.current?.injectJavaScript(`
-                    //       window.ReactNativeWebView.login(${JSON.stringify(jwtToken)}, ${JSON.stringify(SDK_VERSION)});
-                    //   `);
+                    responseLogin(jwtToken, SDK_VERSION);
+                        // webviewRef.current?.injectJavaScript(`
+                        //       window.ReactNativeWebView.login(${JSON.stringify(jwtToken)}, ${JSON.stringify(SDK_VERSION)});
+                        //   `);
                     break;
                 case 'payment':
                     const event = new MoneytreeEvent(
