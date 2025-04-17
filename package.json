@@ -14,6 +14,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "moneytree-package-test": "^0.0.2",
     "react": "18.2.0",
     "react-native": "0.73.0",
     "react-native-webview": "^12.4.0"

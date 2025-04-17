@@ -10,8 +10,8 @@ import ProdMoneytreeView from './example/ProdMoneytreeWebview';
 
 function App(): React.JSX.Element {
 
-  return (
-    <ProdMoneytreeView />
+    return (
+      <ProdMoneytreeView />
   );
 }
 

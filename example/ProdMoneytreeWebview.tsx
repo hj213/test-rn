@@ -1,3 +1,4 @@
+// import { confirmPaymentEvent, MoneytreeEvent, MoneytreeEventType, MoneytreeMode, MoneytreeWebview } from "moneytree-package-test";
 import { useEffect } from "react";
 import { useState } from "react";
 import { MoneytreeWebview, confirmPaymentEvent, MoneytreeEvent, MoneytreeEventType, MoneytreeMode } from "../src/MoneytreeWebview";
